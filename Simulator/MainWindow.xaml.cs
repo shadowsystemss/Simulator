@@ -8,8 +8,9 @@ namespace Simulator
     public partial class MainWindow : Window
     {
         public MainWindow()
-        {
-            InitializeComponent();
-        }
+            => InitializeComponent();
+
+        private void Title_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+            => DragMove();
     }
 }

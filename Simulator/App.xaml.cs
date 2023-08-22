@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
+using Simulator.ViewModels;
 using System.Windows;
 
 namespace Simulator
@@ -13,5 +10,19 @@ namespace Simulator
     /// </summary>
     public partial class App : Application
     {
+        public App()
+            => Ioc.Default.ConfigureServices(
+                new ServiceCollection()
+                .AddSingleton(this)
+                .AddSingleton<MainWindow>()
+                .AddSingleton<MainWindowViewModel>()
+                .BuildServiceProvider());
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            Ioc.Default.GetService<MainWindowViewModel>();
+            Ioc.Default.GetRequiredService<MainWindow>().Show();
+            base.OnStartup(e);
+        }
     }
 }
